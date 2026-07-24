@@ -107,6 +107,8 @@
         /* Menü İçeriği */
         .menu-container {
             padding: 0 15px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .category-section {
@@ -249,32 +251,76 @@
         <a href="#yiyecekler" class="nav-btn" data-target="yiyecekler">
             <i class="fa-solid fa-burger"></i> Yiyecekler
         </a>
+        <a href="#tatlilar" class="nav-btn" data-target="tatlilar">
+            <i class="fa-solid fa-cake-candles"></i> Tatlılar
+        </a>
     </nav>
 
     <main class="menu-container">
         
-        <!-- SICAK İÇECEKLER -->
+        <!-- SICAK İÇECEKLER (Ucuzdan Pahalıya) -->
         <section id="sicak-icecekler" class="category-section">
             <h2 class="category-title"><i class="fa-solid fa-mug-hot"></i> Sıcak İçecekler</h2>
             <div class="menu-list">
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Türk Kahvesi</span>
-                        <span class="item-desc">Özel kavrulmuş çekirdeklerden</span>
+                        <span class="item-name">Çay</span>
                     </div>
-                    <span class="item-price">100₺</span>
+                    <span class="item-price">20₺</span>
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Espresso</span>
+                        <span class="item-name">Mırra (Acı)</span>
                     </div>
-                    <span class="item-price">120₺</span>
+                    <span class="item-price">20₺</span>
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Americano</span>
+                        <span class="item-name">Oralet</span>
                     </div>
-                    <span class="item-price">100₺</span>
+                    <span class="item-price">20₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">3 Ü 1 Arada</span>
+                    </div>
+                    <span class="item-price">40₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Süt</span>
+                    </div>
+                    <span class="item-price">50₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Menengiç</span>
+                    </div>
+                    <span class="item-price">70₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Salep</span>
+                    </div>
+                    <span class="item-price">70₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Bitki Çayları</span>
+                    </div>
+                    <span class="item-price">75₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Ballı Süt</span>
+                    </div>
+                    <span class="item-price">80₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Latte</span>
+                    </div>
+                    <span class="item-price">80₺</span>
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
@@ -290,49 +336,13 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Latte</span>
-                    </div>
-                    <span class="item-price">80₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Sıcak Çikolata</span>
+                        <span class="item-name">Sade Nescafe</span>
                     </div>
                     <span class="item-price">90₺</span>
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Salep</span>
-                    </div>
-                    <span class="item-price">70₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Menengiç</span>
-                    </div>
-                    <span class="item-price">70₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Bitki Çayları</span>
-                    </div>
-                    <span class="item-price">75₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Çay</span>
-                    </div>
-                    <span class="item-price">20₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Mırra (Acı)</span>
-                    </div>
-                    <span class="item-price">20₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Sade Nescafe</span>
+                        <span class="item-name">Sıcak Çikolata</span>
                     </div>
                     <span class="item-price">90₺</span>
                 </div>
@@ -344,27 +354,22 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">3 Ü 1 Arada</span>
+                        <span class="item-name">Americano</span>
                     </div>
-                    <span class="item-price">40₺</span>
+                    <span class="item-price">100₺</span>
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Ballı Süt</span>
+                        <span class="item-name">Türk Kahvesi</span>
+                        <span class="item-desc">Özel kavrulmuş çekirdeklerden</span>
                     </div>
-                    <span class="item-price">80₺</span>
+                    <span class="item-price">100₺</span>
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Süt</span>
+                        <span class="item-name">Espresso</span>
                     </div>
-                    <span class="item-price">50₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Oralet</span>
-                    </div>
-                    <span class="item-price">20₺</span>
+                    <span class="item-price">120₺</span>
                 </div>
             </div>
         </section>
@@ -510,13 +515,6 @@
             <div class="menu-list">
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Katmer</span>
-                        <span class="item-desc">Bol Antep fıstıklı, çıtır çıtır yöresel lezzet</span>
-                    </div>
-                    <span class="item-price">600₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
                         <span class="item-name">Izgara Köfte</span>
                     </div>
                     <span class="item-price">275₺</span>
@@ -542,13 +540,8 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Tatlılar</span>
-                    </div>
-                    <span class="item-price">200₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
-                        <span class="item-name">Aperatif Tabak</span>
+                        <span class="item-name">Zirve Tabak</span>
+                        <span class="item-desc"> Patates kızartması , Soğan halkası ve soslar</span>
                     </div>
                     <span class="item-price">150₺</span>
                 </div>
@@ -578,12 +571,6 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-info">
-                        <span class="item-name">Özel</span>
-                    </div>
-                    <span class="item-price">100₺</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info">
                         <span class="item-name">Yarım Kaşarlı Tost</span>
                     </div>
                     <span class="item-price">100₺</span>
@@ -602,6 +589,38 @@
                 </div>
             </div>
         </section>
+
+        <!-- TATLILAR -->
+        <section id="tatlilar" class="category-section">
+            <h2 class="category-title"><i class="fa-solid fa-cake-candles"></i> Tatlılar</h2>
+            <div class="menu-list">
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Fıstık Rüyası</span>
+                    </div>
+                    <span class="item-price">200₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Çikolatalı Orman Meyveli Pasta</span>
+                    </div>
+                    <span class="item-price">200₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Lotus</span>
+                    </div>
+                    <span class="item-price">200₺</span>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <span class="item-name">Biscoff Bella Cocostar</span>
+                    </div>
+                    <span class="item-price">200₺</span>
+                </div>
+            </div>
+        </section>
+
     </main>
     
     <a href="#" class="fab-button" aria-label="Yukarı Çık">
